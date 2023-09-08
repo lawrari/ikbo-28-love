@@ -1,7 +1,18 @@
 #include <iostream>
-#include <bitset>
 #include <iomanip>
 #include <string>
+
+void coutp(int x)
+{
+	int n = sizeof(int) * 8;
+	unsigned  maska = (1 << (n - 1));
+
+	for (int i = 1; i <= n; i++)
+	{
+		std::cout << ((x & maska) >> (n - i));
+		maska = maska >> 1;
+	}
+}
 
 namespace first {
 	// Функция для установки битов в 1 с использованием маски
@@ -63,12 +74,16 @@ int main() {
 				int mask = 0x1E00; // девятый и 4 слева биты
 
 				std::cout << "Исходное значение переменной (hex): " << std::hex << value << std::endl;
-				std::cout << "Исходное значение переменной (bin): " << std::bitset<sizeof(int) * 8>(value) << std::endl;
+				std::cout << "Исходное значение переменной (bin):   ";
+				coutp(value);
+				std::cout << std::endl;
 
 				first::setBits(value, mask);
 
+				std::cout << "Измененное значение переменной (bin): ";
+				coutp(value);
+				std::cout << std::endl;
 				std::cout << "Измененное значение переменной (hex): " << std::hex << value << std::endl;
-				std::cout << "Измененное значение переменной (bin): " << std::bitset<sizeof(int) * 8>(value) << std::endl;
 
 				system("pause");
 				break;
@@ -83,15 +98,19 @@ int main() {
 				int value = std::stoi(sValue, nullptr, 16);
 
 				std::cout << "Исходное значение переменной (hex): " << std::hex << value << std::endl;
-				std::cout << "Исходное значение переменной (bin): " << std::bitset<sizeof(int) * 8>(value) << std::endl;
+				std::cout << "Исходное значение переменной (bin):   ";
+				coutp(value);
+				std::cout << std::endl;
 
 				// Маска для изменения 17го, 15го и 1го битов в шестнадцатеричной системе счисления
 				int mask = 0x14001;
 
 				second::setBits(value, mask);
 
+				std::cout << "Измененное значение переменной (bin): ";
+				coutp(value);
+				std::cout << std::endl;
 				std::cout << "Измененное значение переменной (hex): " << std::hex << value << std::endl;
-				std::cout << "Измененное значение переменной (bin): " << std::bitset<sizeof(int) * 8>(value) << std::endl;
 
 				system("pause");
 				break;
@@ -145,12 +164,16 @@ int main() {
 				mask = 0x1;
 
 				std::cout << "Исходное число (в 16-ричной форме): 0x" << std::hex << num << std::endl;
-				std::cout << "Исходное число (в 2-ичной форме): 0b" << std::bitset<sizeof(int) * 8>(num) << std::endl;
+				std::cout << "Исходное число (в 2-ичной форме):                      0b";
+				coutp(num);
+				std::cout << std::endl;
 
 				fifth::setBits(num, mask);
 
+				std::cout << "Число после обнуления младшего бита (в 2-ичной форме): 0b";
+				coutp(num);
+				std::cout << std::endl;
 				std::cout << "Число после обнуления младшего бита (в 16-ричной форме): 0x" << std::hex << num << std::endl;
-				std::cout << "Число после обнуления младшего бита (в 2-ичной форме): 0b" << std::bitset<sizeof(int) * 8>(num) << std::endl;
 
 				system("pause");
 				break;
